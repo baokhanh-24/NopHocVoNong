@@ -32,6 +32,8 @@ namespace VoLong_API.Services
             return result;
         }
 
+
+        // haha
         public string DeleteSinhVien(int id)
         {
             throw new NotImplementedException();

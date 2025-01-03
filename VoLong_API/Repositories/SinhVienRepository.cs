@@ -27,6 +27,7 @@ namespace VoLong_API.Repositories
 
             return _lstSinhVien;
         }
+        //haha
 
         public List<SinhVien> DeleteSinhVien(int id)
         {
