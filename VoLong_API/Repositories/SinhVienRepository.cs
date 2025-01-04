@@ -1,33 +1,32 @@
-﻿using VoLong_API.Entities;
+﻿using VoLong_API.Context;
+using VoLong_API.Entities;
 
 namespace VoLong_API.Repositories
 {
     public class SinhVienRepository : ISinhVienRepository
     {
-        private List<SinhVien> _lstSinhVien = new List<SinhVien>();
+        private readonly List<SinhVien> _lstSinhVien = new List<SinhVien>();
 
-        public SinhVienRepository()
+        private readonly LopHocContext _context;
+
+        public SinhVienRepository(LopHocContext context)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                SinhVien sinhVien = new SinhVien();
-                sinhVien.Id = 1 + i;
-                sinhVien.Name = "ehehe" + i;
-                sinhVien.Sdt = "123456789" + sinhVien.Id.ToString() + i;
-                sinhVien.DiaChi = "lmaoo" + i;
-                sinhVien.Lop = "haha" + i;
-                sinhVien.Email = "Lmeoo" + i;
-                _lstSinhVien.Add(sinhVien);
-            }
+            _context = context;
         }
 
         public List<SinhVien> CreateSinhVien(SinhVien sv)
         {
-            _lstSinhVien.Add(sv);
+            //_lstSinhVien.Add(sv);
 
-            return _lstSinhVien;
+            //return _lstSinhVien;
+            
+            var sinhVienAdded = _context.SinhViens.Add(sv); // chỉ lưu vào bộ nhớ tạm thời
+
+            //để lưu lại dữ liệu vào db
+            _context.SaveChanges();
+
+            return _context.SinhViens.ToList();
         }
-        //haha
 
         public List<SinhVien> DeleteSinhVien(int id)
         {
@@ -41,7 +40,9 @@ namespace VoLong_API.Repositories
 
         public List<SinhVien> GetAll()
         {
-            return _lstSinhVien;
+            var lstSinhVienDB = _context.SinhViens.ToList();
+
+            return lstSinhVienDB;
         }
 
         public List<SinhVien> GetListSinhVienByName(string name)

@@ -5,7 +5,7 @@ namespace VoLong_API.Services
 {
     public class SinhVienServices : ISinhVienService
     {
-        // DI
+        // DI   
         private readonly ISinhVienRepository _sinhVienRepository;
 
         public SinhVienServices(ISinhVienRepository sinhVienRepository)
@@ -33,7 +33,7 @@ namespace VoLong_API.Services
         }
 
 
-        // haha
+        // haha1111111111ddd
         public string DeleteSinhVien(int id)
         {
             throw new NotImplementedException();
@@ -51,7 +51,7 @@ namespace VoLong_API.Services
 
         public List<SinhVien> GetAllSinhVien()
         {
-            throw new NotImplementedException();
+            return _sinhVienRepository.GetAll();
         }
 
         public SinhVien UpdateSinhVien(int id, SinhVien sinhVien)

@@ -25,5 +25,11 @@ namespace VoLong_API.Controllers
         }
 
         // abc
+        [HttpGet("get-all-sinh-vien")]
+        public IActionResult GetAllSinhVien()
+        {
+            var result = _sinhVienService.GetAllSinhVien();
+            return Ok(result);
+        }
     }
 }

@@ -9,56 +9,25 @@ namespace VoLong_API.Controllers
     [ApiController]
     public class VoLongController : ControllerBase
     {
-        // Khởi tạo biến toàn cục
-        private readonly SinhVienServices _SinhVienServices;
+        private readonly ISinhVienService _sinhVienService;
 
-        public VoLongController(SinhVienServices services)
+        public VoLongController(ISinhVienService sinhVienService)
         {
-            _SinhVienServices = services;
+            _sinhVienService = sinhVienService;
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] SinhVien sinhVien)
         {
-            var result = _SinhVienServices.AddSinhVien(sinhVien);
-            return Ok(result);  
-        }
-
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id,[FromBody] SinhVien sinhVien)
-        {
-            var result = _SinhVienServices.UpdateSinhVien(id,sinhVien);
+            var result = _sinhVienService.AddSinhVien(sinhVien);
             return Ok(result);
         }
 
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        // abc
+        [HttpGet("get-all-sinh-vien")]
+        public IActionResult GetAllSinhVien()
         {
-            var result = _SinhVienServices.DeleteSinhVien(id);
-            return Ok(result);
-        }
-
-
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
-        {
-            var result = _SinhVienServices.GetAllSinhVien();
-            return Ok(result);
-        }
-
-        [HttpGet("get-by-name/{name}")]
-        public IActionResult FindByName(string name)
-        {
-            var result = _SinhVienServices.FindByName(name);
-            return Ok(result);
-        }
-
-        [HttpGet("get-by-email/{email}")]
-        public IActionResult FindByEmail(string email)
-        {
-            var result = _SinhVienServices.FindByEmail(email);
+            var result = _sinhVienService.GetAllSinhVien();
             return Ok(result);
         }
     }
