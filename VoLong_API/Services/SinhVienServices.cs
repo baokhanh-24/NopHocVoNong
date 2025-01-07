@@ -33,10 +33,23 @@ namespace VoLong_API.Services
         }
 
 
+
         // haha1111111111ddd
-        public string DeleteSinhVien(int id)
+        public bool DeleteSinhVien(int id)
         {
-            throw new NotImplementedException();
+            // lstAllSinhVien: lấy tất cả sinh viên trong db ra
+            var lstAllSinhVien = _sinhVienRepository.GetAll();
+
+            // Tìm sinh viên theo id
+            var sinhVienToDelete = lstAllSinhVien.FirstOrDefault(x => x.Id == id);
+
+            if(sinhVienToDelete is null)
+            {
+                return false;
+            }
+
+            var result = _sinhVienRepository.DeleteSinhVien(sinhVienToDelete);
+            return result;
         }
 
         public List<SinhVien> FindByEmail(string email)
@@ -46,7 +59,10 @@ namespace VoLong_API.Services
 
         public List<SinhVien> FindByName(string name)
         {
-            throw new NotImplementedException();
+
+            var getSinhVienByName = _sinhVienRepository.GetListSinhVienByName(name);
+
+            return getSinhVienByName;
         }
 
         public List<SinhVien> GetAllSinhVien()
@@ -56,7 +72,20 @@ namespace VoLong_API.Services
 
         public SinhVien UpdateSinhVien(int id, SinhVien sinhVien)
         {
-            throw new NotImplementedException();
+            var sinhVienCheck = _sinhVienRepository.GetAll().FirstOrDefault(x => x.Id == id);
+            if(sinhVienCheck == null)
+            {
+                return null;
+            }
+
+                sinhVienCheck.Name = sinhVien.Name;
+                sinhVienCheck.LopId = sinhVien.LopId;
+                sinhVienCheck.Sdt = sinhVien.Sdt;
+                sinhVienCheck.Email = sinhVien.Email;
+                sinhVienCheck.DiaChi = sinhVien.DiaChi;
+
+            var result = _sinhVienRepository.UpdateSinhVien(sinhVien);
+            return result;
         }
 
 

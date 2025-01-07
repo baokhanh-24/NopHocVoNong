@@ -30,5 +30,26 @@ namespace VoLong_API.Controllers
             var result = _sinhVienService.GetAllSinhVien();
             return Ok(result);
         }
+
+        [HttpPut("update-sv/{id}")]
+        public IActionResult Update(int id,[FromBody] SinhVien sinhVien)
+        {
+            var result = _sinhVienService.UpdateSinhVien(id, sinhVien);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-sv/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var result = _sinhVienService.DeleteSinhVien(id);
+            return Ok(result);
+        }
+
+        [HttpGet("get-sinh-vien-by-name/{name}")]
+        public IActionResult GetSinhVienByName(string name)
+        {
+            var result = _sinhVienService.FindByName(name);
+            return Ok(result);
+        }
     }
 }

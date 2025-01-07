@@ -14,8 +14,8 @@ namespace VoLong_API.Repositories
         List<SinhVien> CreateSinhVien(SinhVien sv);
         SinhVien GetSinhVien(int id);
         List<SinhVien> GetListSinhVienByName( string name);
-        List<SinhVien> UpdateSinhVien(int id,SinhVien sv);
-        List<SinhVien> DeleteSinhVien(int id);
+        SinhVien UpdateSinhVien(SinhVien sv);
+        bool DeleteSinhVien(SinhVien sinhVien);
         List<SinhVien> GetAll();
 
     }
