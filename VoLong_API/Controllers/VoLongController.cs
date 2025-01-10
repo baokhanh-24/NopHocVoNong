@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VoLong_API.DTOs.SinhVien;
 using VoLong_API.Entities;
 using VoLong_API.Services;
 
@@ -17,7 +18,7 @@ namespace VoLong_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] SinhVien sinhVien)
+        public IActionResult Post([FromBody] CreateOrUpdateSinhVienDTO sinhVien)
         {
             var result = _sinhVienService.AddSinhVien(sinhVien);
             return Ok(result);
@@ -31,10 +32,10 @@ namespace VoLong_API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("update-sv/{id}")]
-        public IActionResult Update(int id,[FromBody] SinhVien sinhVien)
+        [HttpPut("update-sv")]
+        public IActionResult Update([FromBody] CreateOrUpdateSinhVienDTO sinhVien)
         {
-            var result = _sinhVienService.UpdateSinhVien(id, sinhVien);
+            var result = _sinhVienService.UpdateSinhVien( sinhVien);
             return Ok(result);
         }
 
@@ -49,6 +50,13 @@ namespace VoLong_API.Controllers
         public IActionResult GetSinhVienByName(string name)
         {
             var result = _sinhVienService.FindByName(name);
+            return Ok(result);
+        }
+
+        [HttpGet("get-list-sinh-vien")]
+        public IActionResult GetListSinhVien()
+        {
+            var result = _sinhVienService.GetListSinhVien();
             return Ok(result);
         }
     }

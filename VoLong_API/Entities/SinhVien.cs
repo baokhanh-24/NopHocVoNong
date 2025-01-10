@@ -9,7 +9,6 @@ namespace VoLong_API.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public string Sdt { get; set; }
-        public string Lop { get; set; }
         public string DiaChi { get; set; }
 
         // đặt tên của bảng cùng với thuộc tính(khóa ngoại)

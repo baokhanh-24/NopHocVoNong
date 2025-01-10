@@ -1,4 +1,6 @@
-﻿using VoLong_API.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using VoLong_API.DTOs.SinhVien;
+using VoLong_API.Entities;
 using VoLong_API.Repositories;
 
 namespace VoLong_API.Services
@@ -8,12 +10,15 @@ namespace VoLong_API.Services
         // DI   
         private readonly ISinhVienRepository _sinhVienRepository;
 
-        public SinhVienServices(ISinhVienRepository sinhVienRepository)
+        private readonly ILopRepository _lopRepository;
+
+        public SinhVienServices(ISinhVienRepository sinhVienRepository, ILopRepository lopRepository)
         {
             _sinhVienRepository = sinhVienRepository;
+            _lopRepository = lopRepository;
         }
 
-        public List<SinhVien> AddSinhVien(SinhVien sinhVien)
+        public List<SinhVien> AddSinhVien(CreateOrUpdateSinhVienDTO sinhVien)
         {
             // Dùng để tìm kiếm sinh viên ở trong lstAllSV
             var lstAllSV = _sinhVienRepository.GetAll();
@@ -27,8 +32,18 @@ namespace VoLong_API.Services
                     return lstAllSV;
                 }
             }
+            SinhVien sinhVienDB = new SinhVien();
+
+            
+            sinhVienDB.Name = sinhVien.Name;
+            sinhVienDB.Email = sinhVien.Email;
+            sinhVienDB.DiaChi = sinhVien.DiaChi;
+            sinhVienDB.Sdt = sinhVien.Sdt;
+            sinhVienDB.LopId = sinhVien.LopId;
+
+
             // nếu email muốn thêm không bị trùng thì sẽ thêm sinh viên đó trả về list sinh viên(result) đã được thêm
-            var result = _sinhVienRepository.CreateSinhVien(sinhVien);
+            var result = _sinhVienRepository.CreateSinhVien(sinhVienDB);
             return result;
         }
 
@@ -70,21 +85,58 @@ namespace VoLong_API.Services
             return _sinhVienRepository.GetAll();
         }
 
-        public SinhVien UpdateSinhVien(int id, SinhVien sinhVien)
+        public List<SinhVienDTO> GetListSinhVien()
         {
-            var sinhVienCheck = _sinhVienRepository.GetAll().FirstOrDefault(x => x.Id == id);
-            if(sinhVienCheck == null)
+            var lstSinhVienDTO = new List<SinhVienDTO>();
+
+            var lstSinhVien = _sinhVienRepository.GetAll();
+
+            foreach (var item in lstSinhVien)
             {
-                return null;
+                SinhVienDTO sinhVienDTO = new SinhVienDTO();
+                sinhVienDTO.Id = item.Id;
+                sinhVienDTO.Name = item.Name;
+                sinhVienDTO.Email = item.Email;
+                sinhVienDTO.Sdt = item.Sdt;
+                sinhVienDTO.DiaChi = item.DiaChi;
+                sinhVienDTO.LopId = item.LopId;
+
+                var lop = _lopRepository.GetLopById(item.LopId);  // Tìm kiếm lớp của sinh viên
+
+                sinhVienDTO.TenLop = lop.Name;
+
+                lstSinhVienDTO.Add(sinhVienDTO);
+                
             }
 
-                sinhVienCheck.Name = sinhVien.Name;
-                sinhVienCheck.LopId = sinhVien.LopId;
-                sinhVienCheck.Sdt = sinhVien.Sdt;
-                sinhVienCheck.Email = sinhVien.Email;
-                sinhVienCheck.DiaChi = sinhVien.DiaChi;
+            return lstSinhVienDTO;
+        }
 
-            var result = _sinhVienRepository.UpdateSinhVien(sinhVien);
+        public SinhVien UpdateSinhVien(CreateOrUpdateSinhVienDTO sinhVien)
+        {
+            //var sinhVienCheck = _sinhVienRepository.GetAll().FirstOrDefault(x => x.Id == id);
+            //if(sinhVienCheck == null)
+            //{
+            //    return null;
+            //}
+
+            //sinhVienCheck.Name = sinhVien.Name;
+            //sinhVienCheck.LopId = sinhVien.LopId;
+            //sinhVienCheck.Sdt = sinhVien.Sdt;
+            //sinhVienCheck.Email = sinhVien.Email;
+            //sinhVienCheck.DiaChi = sinhVien.DiaChi;
+
+            SinhVien sinhVienDB = new SinhVien();
+
+
+            sinhVienDB.Name = sinhVien.Name;
+            sinhVienDB.Email = sinhVien.Email;
+            sinhVienDB.DiaChi = sinhVien.DiaChi;
+            sinhVienDB.Sdt = sinhVien.Sdt;
+            sinhVienDB.LopId = sinhVien.LopId;
+            sinhVienDB.Id = sinhVienDB.Id;
+
+            var result = _sinhVienRepository.UpdateSinhVien(sinhVienDB);
             return result;
         }
 

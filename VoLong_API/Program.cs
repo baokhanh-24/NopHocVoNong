@@ -36,6 +36,8 @@ builder.Services.AddScoped <ISinhVienService ,SinhVienServices >();
 // Đăng kí repo để chương trình chạy được
 builder.Services.AddScoped <ISinhVienRepository, SinhVienRepository>();
 
+builder.Services.AddScoped <ILopRepository,LopRepository>();
+
 
 var app = builder.Build();
 
