@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VoLong_API.DTOs.SinhVien;
 using VoLong_API.Entities;
 using VoLong_API.Services;
 
@@ -9,56 +10,53 @@ namespace VoLong_API.Controllers
     [ApiController]
     public class VoLongController : ControllerBase
     {
-        // Khởi tạo biến toàn cục
-        private readonly SinhVienServices _SinhVienServices;
+        private readonly ISinhVienService _sinhVienService;
 
-        public VoLongController(SinhVienServices services)
+        public VoLongController(ISinhVienService sinhVienService)
         {
-            _SinhVienServices = services;
+            _sinhVienService = sinhVienService;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] SinhVien sinhVien)
+        public IActionResult Post([FromBody] CreateOrUpdateSinhVienDTO sinhVien)
         {
-            var result = _SinhVienServices.AddSinhVien(sinhVien);
-            return Ok(result);  
-        }
-
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id,[FromBody] SinhVien sinhVien)
-        {
-            var result = _SinhVienServices.UpdateSinhVien(id,sinhVien);
+            var result = _sinhVienService.AddSinhVien(sinhVien);
             return Ok(result);
         }
 
+        // abc
+        [HttpGet("get-all-sinh-vien")]
+        public IActionResult GetAllSinhVien()
+        {
+            var result = _sinhVienService.GetAllSinhVien();
+            return Ok(result);
+        }
 
-        [HttpDelete("{id}")]
+        [HttpPut("update-sv")]
+        public IActionResult Update([FromBody] CreateOrUpdateSinhVienDTO sinhVien)
+        {
+            var result = _sinhVienService.UpdateSinhVien( sinhVien);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-sv/{id}")]
         public IActionResult Delete(int id)
         {
-            var result = _SinhVienServices.DeleteSinhVien(id);
+            var result = _sinhVienService.DeleteSinhVien(id);
             return Ok(result);
         }
 
-
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpGet("get-sinh-vien-by-name/{name}")]
+        public IActionResult GetSinhVienByName(string name)
         {
-            var result = _SinhVienServices.GetAllSinhVien();
+            var result = _sinhVienService.FindByName(name);
             return Ok(result);
         }
 
-        [HttpGet("get-by-name/{name}")]
-        public IActionResult FindByName(string name)
+        [HttpGet("get-list-sinh-vien")]
+        public IActionResult GetListSinhVien()
         {
-            var result = _SinhVienServices.FindByName(name);
-            return Ok(result);
-        }
-
-        [HttpGet("get-by-email/{email}")]
-        public IActionResult FindByEmail(string email)
-        {
-            var result = _SinhVienServices.FindByEmail(email);
+            var result = _sinhVienService.GetListSinhVien();
             return Ok(result);
         }
     }

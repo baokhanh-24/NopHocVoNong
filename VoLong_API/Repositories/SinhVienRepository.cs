@@ -1,51 +1,68 @@
-﻿using VoLong_API.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using VoLong_API.Context;
+using VoLong_API.Entities;
 
 namespace VoLong_API.Repositories
 {
     public class SinhVienRepository : ISinhVienRepository
     {
-        private List<SinhVien> _lstSinhVien = new List<SinhVien>();
+        private readonly List<SinhVien> _lstSinhVien = new List<SinhVien>();
 
-        public SinhVienRepository()
+        private readonly LopHocContext _context;
+
+        public SinhVienRepository(LopHocContext context)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                SinhVien sinhVien = new SinhVien();
-                sinhVien.Id = 1 + i;
-                sinhVien.Name = "ehehe" + i;
-                sinhVien.Sdt = "123456789" + sinhVien.Id.ToString() + i;
-                sinhVien.DiaChi = "lmaoo" + i;
-                sinhVien.Lop = "haha" + i;
-                sinhVien.Email = "Lmeoo" + i;
-                _lstSinhVien.Add(sinhVien);
-            }
+            _context = context;
         }
 
         public List<SinhVien> CreateSinhVien(SinhVien sv)
         {
-            _lstSinhVien.Add(sv);
+            //_lstSinhVien.Add(sv);
 
-            return _lstSinhVien;
+            //return _lstSinhVien;
+            
+            var sinhVienAdded = _context.SinhViens.Add(sv); // chỉ lưu vào bộ nhớ tạm thời
+
+            //để lưu lại dữ liệu vào db
+            _context.SaveChanges();
+
+            return _context.SinhViens.ToList();
         }
 
-        public List<SinhVien> DeleteSinhVien(int id)
+        public bool DeleteSinhVien(SinhVien sinhVien)
         {
-            foreach (var sv in _lstSinhVien.Where(c => c.Id == id))
+            try
             {
-                _lstSinhVien.Remove(sv);
-
+                var sinhVienDeleted = _context.SinhViens.Remove(sinhVien);
+                _context.SaveChanges();
             }
-            return _lstSinhVien;
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return true;
         }
 
         public List<SinhVien> GetAll()
         {
-            return _lstSinhVien;
+            var lstSinhVienDB = _context.SinhViens.ToList();
+
+            return lstSinhVienDB;
         }
 
         public List<SinhVien> GetListSinhVienByName(string name)
         {
-            var result = _lstSinhVien.Where(c => c.Name.ToLower().StartsWith(name.ToLower())).ToList();
+            // where: tìm list
+            // FirstOrDefault: tìm 1 sinh viên
+            var result = _context.SinhViens.Where(x => x.Name.ToLower().StartsWith(name.ToLower())).ToList();
+            return result;
+        }   
+        public List<SinhVien> GetListSinhVienByLopId(int lopId)
+        {
+            // where: tìm list
+            // FirstOrDefault: tìm 1 sinh viên
+            var result = _context.SinhViens.Where(c => c.LopId==lopId).ToList();
             return result;
         }
 
@@ -55,19 +72,31 @@ namespace VoLong_API.Repositories
             return x;
         }
 
-        public List<SinhVien> UpdateSinhVien(int id, SinhVien sv)
+        public SinhVien UpdateSinhVien(SinhVien sv)
         {
-            foreach (var x in _lstSinhVien.Where(c => c.Id == id))
-            {
-                x.Name = sv.Name;
-                x.Email = sv.Email;
-                x.Sdt = sv.Sdt;
-                x.Lop = sv.Lop;
-                x.DiaChi = sv.DiaChi;
+            //foreach (var x in _lstSinhVien.Where(c => c.Id == id))
+            //{
+            //    x.Name = sv.Name;
+            //    x.Email = sv.Email;
+            //    x.Sdt = sv.Sdt;
+            //    x.Lop = sv.Lop;
+            //    x.DiaChi = sv.DiaChi;
 
-            }
+            //}
 
-            return _lstSinhVien;
+            //return _lstSinhVien;
+
+
+            var sinhVienUpdated = _context.SinhViens.Update(sv); 
+
+            _context.SaveChanges();
+
+            return sv;
+        }
+
+        public List<SinhVien> GetAllSinhVienByLopId(int lopId)
+        {
+            return _context.SinhViens.Where(c => c.LopId == lopId).ToList();
         }
     }
 }

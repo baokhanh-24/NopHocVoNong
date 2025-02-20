@@ -1,27 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using VoLong_API.Entities;
-using VoLong_API.Services;
+﻿//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using VoLong_API.Entities;
+//using VoLong_API.Services;
 
-namespace VoLong_API.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SinhVienController : ControllerBase
-    {
-        // DI
-        private readonly ISinhVienService _sinhVienService;
+//namespace VoLong_API.Controllers
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    public class SinhVienController : ControllerBase
+//    {
+//        // DI
+//        private readonly ISinhVienService _sinhVienService;
 
-        public SinhVienController(ISinhVienService sinhVienService)
-        {
-            _sinhVienService = sinhVienService;
-        }
+//        public SinhVienController(ISinhVienService sinhVienService)
+//        {
+//            _sinhVienService = sinhVienService;
+//        }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] SinhVien sinhVien)
-        {
-            var result = _sinhVienService.AddSinhVien(sinhVien);
-            return Ok(result);
-        }
-    }
-}
+//        [HttpPost]
+//        public IActionResult Post([FromBody] SinhVien sinhVien)
+//        {
+//            var result = _sinhVienService.AddSinhVien(sinhVien);
+//            return Ok(result);
+//        }
+
+//        // abc
+//        [HttpGet("get-all-sinh-vien")]
+//        public IActionResult GetAllSinhVien()
+//        {
+//            var result = _sinhVienService.GetAllSinhVien();
+//            return Ok(result);
+//        }
+//    }
+//}
