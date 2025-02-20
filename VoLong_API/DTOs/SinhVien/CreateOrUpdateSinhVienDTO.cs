@@ -9,5 +9,8 @@
         public string DiaChi { get; set; }
         public int LopId { get; set; }
 
+
+        public string TenLop { get; set; }
+
     }
 }

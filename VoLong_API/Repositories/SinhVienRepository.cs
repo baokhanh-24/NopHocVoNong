@@ -57,6 +57,13 @@ namespace VoLong_API.Repositories
             // FirstOrDefault: tìm 1 sinh viên
             var result = _context.SinhViens.Where(x => x.Name.ToLower().StartsWith(name.ToLower())).ToList();
             return result;
+        }   
+        public List<SinhVien> GetListSinhVienByLopId(int lopId)
+        {
+            // where: tìm list
+            // FirstOrDefault: tìm 1 sinh viên
+            var result = _context.SinhViens.Where(c => c.LopId==lopId).ToList();
+            return result;
         }
 
         public SinhVien GetSinhVien(int id)
@@ -85,6 +92,11 @@ namespace VoLong_API.Repositories
             _context.SaveChanges();
 
             return sv;
+        }
+
+        public List<SinhVien> GetAllSinhVienByLopId(int lopId)
+        {
+            return _context.SinhViens.Where(c => c.LopId == lopId).ToList();
         }
     }
 }

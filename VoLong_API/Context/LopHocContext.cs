@@ -17,6 +17,7 @@ namespace VoLong_API.Context
         //DbSet giúp trỏ đến các bảng để tương tác với các dữ liệu (trong db)
         public DbSet<SinhVien> SinhViens { get; set; }
         public DbSet<Lop> Lops { get; set; }
+        public DbSet<TruongHoc> TruongHocs { get; set; }
 
         // phương thức này được bảo vệ và được kế thừa và ghi đè từ lớp cha (DbContext) 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,7 +26,7 @@ namespace VoLong_API.Context
             modelBuilder.Entity<SinhVien>(entity =>
             {
                 // ToTable: định danh tên bảng trong sql
-                entity.ToTable("Sinh vien truong mua");
+                entity.ToTable("SinhVienTruongMua");
 
                 // HasKey: xác định khóa chính là trường nào
                 entity.HasKey(c => c.Id);
@@ -37,12 +38,23 @@ namespace VoLong_API.Context
             modelBuilder.Entity<Lop>(entity =>
             {
                 // ToTable: định danh tên bảng trong sql
-                entity.ToTable("Lop mua");
+                entity.ToTable("LopMua");
 
                 // HasKey: xác định khóa chính là trường nào
                 entity.HasKey(c => c.Id);
 
                 
+            });
+
+            modelBuilder.Entity<TruongHoc>(entity =>
+            {
+                // ToTable: định danh tên bảng trong sql
+                entity.ToTable("TruongMua");
+
+                // HasKey: xác định khóa chính là trường nào
+                entity.HasKey(c => c.Id);
+
+
             });
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using VoLong_API.Commons;
 using VoLong_API.DTOs.SinhVien;
 using VoLong_API.Entities;
 using VoLong_API.Repositories;
@@ -100,6 +101,8 @@ namespace VoLong_API.Services
                 sinhVienDTO.Sdt = item.Sdt;
                 sinhVienDTO.DiaChi = item.DiaChi;
                 sinhVienDTO.LopId = item.LopId;
+
+                
 
                 var lop = _lopRepository.GetLopById(item.LopId);  // Tìm kiếm lớp của sinh viên
 

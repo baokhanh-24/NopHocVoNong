@@ -38,6 +38,12 @@ builder.Services.AddScoped <ISinhVienRepository, SinhVienRepository>();
 
 builder.Services.AddScoped <ILopRepository,LopRepository>();
 
+builder.Services.AddScoped<ILopService, LopService>();
+
+builder.Services.AddScoped<ITruongHocRepository, TruongHocRepository>();
+
+builder.Services.AddScoped<ITruongHocService, TruongHocService>();
+
 
 var app = builder.Build();
 

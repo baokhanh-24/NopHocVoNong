@@ -14,17 +14,39 @@ namespace VoLong_API.Repositories
 
         public List<Lop> Create(Lop lop)
         {
-            throw new NotImplementedException();
+            var lopAdded = _context.Lops.Add(lop);
+
+            _context.SaveChanges();
+
+            return _context.Lops.ToList();
         }
 
         public bool Delete(Lop lop)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var lopDelete = _context.Remove(lop);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return true;
+        }
+
+        public List<Lop> GetLopByTruongHocId(int truongHocid)
+        {
+            var result = _context.Lops.Where(c => c.TruongHocId == truongHocid).ToList();
+
+            return result; 
         }
 
         public Lop GetLopById(int id)
         {
-            var x = _context.Lops.Where(c =>c.Id == id).FirstOrDefault();
+            var x = _context.Lops.Where(c => c.Id == id).FirstOrDefault();
+
             return x;
         }
 
@@ -40,7 +62,16 @@ namespace VoLong_API.Repositories
 
         public Lop Update(Lop lop)
         {
-            throw new NotImplementedException();
+            var lopUpdate = _context.Lops.Update(lop);
+
+            _context.SaveChanges();
+
+            return lop;
+        }
+        public List<Lop> GetAllLopByTruongHocId(int truongHocId)
+        {
+            // lấy tất cả các lớp theo điều kiện id của trường
+            return _context.Lops.Where(c => c.TruongHocId == truongHocId).ToList();
         }
     }
 }
