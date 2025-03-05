@@ -68,7 +68,7 @@ namespace VoLong_API.Repositories
 
         public SinhVien GetSinhVien(int id)
         {
-            var x = _lstSinhVien.Where(c =>c.Id == id).FirstOrDefault();
+            var x = _context.SinhViens.Where(c =>c.Id == id).FirstOrDefault();
             return x;
         }
 

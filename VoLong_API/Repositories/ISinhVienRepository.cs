@@ -9,7 +9,7 @@ namespace VoLong_API.Repositories
         //Task<SinhVien> GetSinhVienAsync(int id , SinhVien sv);
         //Task<List<SinhVien>> GetListSinhVienByNameAsync( string name);
         //Task<List<SinhVien>> UpdateSinhVienAsync(int id,SinhVien sv);
-        //Task<List<SinhVien>> DeleteSinhVienAsync(int id);
+
         List<SinhVien> GetListSinhVienByLopId(int lopId);
         List<SinhVien> CreateSinhVien(SinhVien sv);
         SinhVien GetSinhVien(int id);
