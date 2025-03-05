@@ -18,6 +18,8 @@ namespace VoLong_API.Context
         public DbSet<SinhVien> SinhViens { get; set; }
         public DbSet<Lop> Lops { get; set; }
         public DbSet<TruongHoc> TruongHocs { get; set; }
+        public DbSet<SinhVienSubject> SinhVienSubjects { get; set; }
+        public DbSet<Subject> subjects { get; set; }
 
         // phương thức này được bảo vệ và được kế thừa và ghi đè từ lớp cha (DbContext) 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +55,32 @@ namespace VoLong_API.Context
 
                 // HasKey: xác định khóa chính là trường nào
                 entity.HasKey(c => c.Id);
+
+
+            });
+
+            modelBuilder.Entity<Subject>(entity =>
+            {
+                // ToTable: định danh tên bảng trong sql
+                entity.ToTable("Subject");
+
+                // HasKey: xác định khóa chính là trường nào
+                entity.HasKey(c => c.Id);
+
+
+            });
+
+            modelBuilder.Entity<SinhVienSubject>(entity =>
+            {
+                // ToTable: định danh tên bảng trong sql
+                entity.ToTable("SinhVienSubject");
+
+                // HasKey: xác định khóa chính là trường nào
+                entity.HasKey(c => new
+                {
+                    c.SinhVienId,
+                    c.SubjectId,
+                });
 
 
             });

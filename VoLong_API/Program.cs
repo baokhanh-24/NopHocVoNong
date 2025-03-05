@@ -30,19 +30,25 @@ builder.Services.AddSwaggerGen();
 
 // có 3 loại: scope, singleton (nặng nhất), transient(nhẹ nhất)
 
+
 // Đăng kí service để chương trình chạy được
 builder.Services.AddScoped <ISinhVienService ,SinhVienServices >();
-
 // Đăng kí repo để chương trình chạy được
 builder.Services.AddScoped <ISinhVienRepository, SinhVienRepository>();
 
-builder.Services.AddScoped <ILopRepository,LopRepository>();
 
+builder.Services.AddScoped <ILopRepository,LopRepository>();
 builder.Services.AddScoped<ILopService, LopService>();
 
-builder.Services.AddScoped<ITruongHocRepository, TruongHocRepository>();
 
+builder.Services.AddScoped<ITruongHocRepository, TruongHocRepository>();
 builder.Services.AddScoped<ITruongHocService, TruongHocService>();
+
+builder.Services.AddScoped<ISinhVienSubjectRepository, SinhVienSubjectRepository>();
+builder.Services.AddScoped<ISinhVienSubjectService, SinhVienSubjectService>();
+
+
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 
 var app = builder.Build();

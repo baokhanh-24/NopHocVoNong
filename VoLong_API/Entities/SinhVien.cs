@@ -21,5 +21,8 @@ namespace VoLong_API.Entities
         // jsonIgnore: là 1 attribute giúp cho không hiển thị trên swagger
         [JsonIgnore]
         public virtual Lop? LopHoc { get; set; }
+
+        //quan hệ 1-n vì 1 sv có thể học nhiều môn
+        public virtual ICollection<SinhVienSubject> SinhVienSubjects { get; set; }
     }
 }
