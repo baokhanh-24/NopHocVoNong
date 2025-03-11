@@ -7,5 +7,11 @@ namespace VoLong_API.Repositories
     {
         List<SinhVienSubject> GetListAllSinhVienSubject();
 
+        List<SinhVienSubject> CreateSinhVienSubject(SinhVienSubject sinhVienSubject);
+        SinhVienSubject UpdateSinhVienSubject(SinhVienSubject sinhVienSubject);
+        bool DeleteSinhVienSubject(SinhVienSubject sinhVienSubject);
+
+        List<SinhVienSubject> GetSinhVienHocBySubjectId(int subjectId);
+
     }
 }

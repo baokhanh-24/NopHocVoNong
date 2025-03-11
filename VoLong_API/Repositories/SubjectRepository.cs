@@ -24,5 +24,40 @@ namespace VoLong_API.Repositories
             var result = _context.subjects.FirstOrDefault(x => x.Id == id);
             return result;
         }
+
+
+        public List<Subject> CreateSubject(Subject subject)
+        {
+            var subjectAdded = _context.subjects.Add(subject); // chỉ lưu vào bộ nhớ tạm thời
+
+            //để lưu lại dữ liệu vào db
+            _context.SaveChanges();
+
+            return _context.subjects.ToList();
+        }
+
+        public bool DeleteSubject(Subject subject)
+        {
+            try
+            {
+                var subjectDeleted = _context.subjects.Remove(subject);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return true;
+        }
+
+        public Subject UpdateSubject(Subject subject)
+        {
+            var subjectUpdated = _context.subjects.Update(subject);
+
+            _context.SaveChanges();
+
+            return subject;
+        }
     }
 }

@@ -49,6 +49,7 @@ builder.Services.AddScoped<ISinhVienSubjectService, SinhVienSubjectService>();
 
 
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
 
 
 var app = builder.Build();
