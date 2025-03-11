@@ -15,5 +15,6 @@
         public double FifteenMinutesPoint { get; set; }
         public double OralTestScores { get; set; }
         public double SemesterExamScore { get; set; }
+
     }
 }

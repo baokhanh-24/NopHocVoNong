@@ -6,5 +6,8 @@ namespace VoLong_API.Repositories
     {
         List<Subject> GetListAllSubject();
         Subject GetSubjectById(int id);
+        List<Subject> CreateSubject(Subject subject);
+        Subject UpdateSubject(Subject subject);
+        bool DeleteSubject(Subject subject);
     }
 }

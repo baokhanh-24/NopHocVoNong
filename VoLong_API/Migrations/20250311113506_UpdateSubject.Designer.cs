@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VoLong_API.Context;
 
@@ -11,9 +12,10 @@ using VoLong_API.Context;
 namespace VoLong_API.Migrations
 {
     [DbContext(typeof(LopHocContext))]
-    partial class LopHocContextModelSnapshot : ModelSnapshot
+    [Migration("20250311113506_UpdateSubject")]
+    partial class UpdateSubject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
